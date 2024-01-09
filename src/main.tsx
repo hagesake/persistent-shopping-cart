@@ -8,10 +8,15 @@ import router from "./router/router";
 import { Provider } from "react-redux";
 import cartStore from "./redux_stores/shopping_cart/store.ts";
 
+import { PersistGate } from "redux-persist/integration/react";
+import { cartPersistor } from "./redux_stores/shopping_cart/store.ts";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={cartStore}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={cartPersistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );

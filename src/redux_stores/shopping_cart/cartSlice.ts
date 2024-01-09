@@ -21,12 +21,12 @@ export const shoppingCartSlice = createSlice({
       if (state.products.some((p) => p.id === product.id)) {
         const index = state.products.findIndex((p) => p.id === product.id);
         state.products[index].quantitty += 1;
-        return;
+      } else {
+        state.products.push({
+          ...product,
+          quantitty: 1,
+        });
       }
-      state.products.push({
-        ...product,
-        quantitty: 1,
-      });
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       state.products = state.products.filter(
