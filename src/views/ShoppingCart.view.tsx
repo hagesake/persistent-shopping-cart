@@ -8,6 +8,11 @@ const ShoppingCartView = () => {
     (state) => state.products.products,
   );
 
+  const totalPrice = productsInCart.reduce(
+    (accumulator, product) => accumulator + product.price * product.quantity,
+    0,
+  );
+
   return (
     <>
       <main className="flex flex-col px-4 pb-4">
@@ -23,6 +28,8 @@ const ShoppingCartView = () => {
             );
           })}
         </ProductList>
+
+        <p>Total: {totalPrice}</p>
       </main>
     </>
   );

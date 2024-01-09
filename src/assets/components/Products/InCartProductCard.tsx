@@ -1,12 +1,16 @@
 import { useShoppingCartDispatch } from "../../../redux_stores/shopping_cart/cart_hooks";
-import { removeFromCart } from "../../../redux_stores/shopping_cart/cartSlice";
+import {
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../../../redux_stores/shopping_cart/cartSlice";
 
 export type InCartProduct = {
   id: number;
   name: string;
   price: number;
   description: string;
-  quantitty: number;
+  quantity: number;
 };
 
 type Props = {
@@ -33,9 +37,21 @@ const InCartProductCard = ({ product }: Props) => {
             </div>
 
             <div className="flex items-center gap-2">
-              <button>-</button>
-              <p>{product.quantitty}</p>
-              <button>+</button>
+              <button
+                onClick={() => {
+                  shoppingCartProductsDispatch(decreaseQuantity(product.id));
+                }}
+              >
+                -
+              </button>
+              <p>{product.quantity}</p>
+              <button
+                onClick={() => {
+                  shoppingCartProductsDispatch(increaseQuantity(product.id));
+                }}
+              >
+                +
+              </button>
             </div>
           </div>
 
