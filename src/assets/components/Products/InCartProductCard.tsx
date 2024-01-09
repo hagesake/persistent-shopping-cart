@@ -1,13 +1,19 @@
-import type { Product } from "./ProductList";
-
 import { useShoppingCartDispatch } from "../../../redux_stores/shopping_cart/cart_hooks";
-import { addToCart } from "../../../redux_stores/shopping_cart/cartSlice";
+import { removeFromCart } from "../../../redux_stores/shopping_cart/cartSlice";
 
-type Props = {
-  product: Product;
+export type InCartProduct = {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  quantitty: number;
 };
 
-const ProductCard = ({ product }: Props) => {
+type Props = {
+  product: InCartProduct;
+};
+
+const InCartProductCard = ({ product }: Props) => {
   const shoppingCartProductsDispatch = useShoppingCartDispatch();
 
   return (
@@ -26,19 +32,25 @@ const ProductCard = ({ product }: Props) => {
               <p>{product.price}</p>
             </div>
 
-            <button
-              onClick={() => {
-                shoppingCartProductsDispatch(addToCart(product));
-              }}
-              className="rounded bg-slate-200 p-1"
-            >
-              Add to cart
-            </button>
+            <div className="flex items-center gap-2">
+              <button>-</button>
+              <p>{product.quantitty}</p>
+              <button>+</button>
+            </div>
           </div>
+
+          <button
+            onClick={() => {
+              shoppingCartProductsDispatch(removeFromCart(product.id));
+            }}
+            className="rounded bg-slate-200 p-1"
+          >
+            Remove
+          </button>
         </div>
       </div>
     </>
   );
 };
 
-export default ProductCard;
+export default InCartProductCard;

@@ -5,8 +5,13 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 
+import { Provider } from "react-redux";
+import cartStore from "./redux_stores/shopping_cart/store.ts";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={cartStore}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 );
